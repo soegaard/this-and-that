@@ -7,6 +7,18 @@
          racket/snip
          racket/gui/base)
 
+;;;
+;;; This file contains bindings for the pdf rendering library Poppler.
+;;; The documentation for Popper can be found here:
+;;;     http://people.freedesktop.org/~ajohnson/docs/poppler-glib/
+;;;
+
+;;; This file simply contains an example, that works on my machine.
+;;; Modify the code, so it looks for the libraries libgtk-x11-2.0 and libpoppler-glib
+;;; in the right places.
+
+;;; Also to get the example at the bottom working, change the path of bla.pdf.
+
 (define-ffi-definer define-glib (ffi-lib "/opt/local/lib/libgtk-x11-2.0"))
 (define-glib gtk_init (_fun _pointer _pointer -> _void))
 (gtk_init #f #f)
