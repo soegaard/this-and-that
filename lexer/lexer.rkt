@@ -2,9 +2,9 @@
 
 ;;;
 ;;; Implementing a lexer using the technique in Rob Pikes lecture.
-;;; Video:  http://www.youtube.com/watch?v=HxaD_trXwRE
-;;; Slides: http://rspace.googlecode.com/hg/slide/lex.html
-;;;
+;;; Video:   http://www.youtube.com/watch?v=HxaD_trXwRE
+;;; Slides:  http://rspace.googlecode.com/hg/slide/lex.html
+;;; Example: http://code.google.com/p/go/source/browse/src/pkg/text/template/parse/lex.go?name=weekly.2012-03-27
 
 (require racket/async-channel
          (only-in parser-tools/lex
