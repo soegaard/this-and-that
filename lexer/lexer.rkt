@@ -24,7 +24,7 @@
 ;;; TYPES
 ;;;
 
-(define-struct token (type val) #:transparent)
+(define-struct token (type val start end) #:transparent)
 
 (define-struct lexer 
   (name   ; string     // used only for error reports.
@@ -123,7 +123,7 @@
          (define c (next l))
          (cond 
            [(or (eq? c 'eof) (eqv? c #\newline))
-            (error "unclosed action")]
+            (lex-error l "unclosed action")]
            [else (loop)])]))))
 
 ;;;
@@ -189,8 +189,26 @@
       [(lexer name input start pos width tokens)
        ; (displayln (list 'emit: (token t (substring input start pos))))
        (async-channel-put 
-        tokens (token t (substring input start pos)))
+        tokens (token t (substring input start pos) start pos))
        (l.start! pos)])))
+
+;;;
+;;; Errors
+;;;
+
+(define (lex-error l fmt . args)
+  (declare ([l lexer])
+    ; error returns an error token and terminates the scan
+    ; by passing back a nil pointer that will be the next
+    ; state, terminating l.run.
+    (async-channel-put l.tokens
+                       (token 'error (apply format fmt args)
+                              l.start (string-length l.input)))
+    #f))
+
+;;;
+;;; Example
+;;;
 
 (define-values (l ts) 
   (lex "Example" "This just some random text.{{Here is the action!}}Back to text again."))
