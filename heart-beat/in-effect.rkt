@@ -5,7 +5,7 @@
    (lambda ()
      (values (λ (pos) (effect))      ; pos->element
              not                     ; next-pos
-             0                       ; initial-pos
+             #t                      ; initial-pos
              (λ (pos) pos)           ; continue?
              #f
              #f))))
@@ -14,4 +14,6 @@
           [x (in-cycle (in-range 4)
                        (in-effect (λ () (display "."))))])
   i)
+
+; ....190
 
