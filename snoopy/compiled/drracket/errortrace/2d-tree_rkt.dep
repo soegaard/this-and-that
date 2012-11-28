@@ -1,1 +1,0 @@
-("5.3.1.9" ("d081d69f32b17eeca980b6d8eaa3c6f12011613c" . "3f0f8ef761cef388ef72ed22db2e88e1509ecb7b") #"/Users/soegaard/Dropbox/GitHub/this-and-that/snoopy/1d-tree.rkt" (collects #"racket" #"main.rkt") (collects #"racket" #"lang" #"reader.rkt"))
