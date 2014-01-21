@@ -41,7 +41,6 @@
   (syntax-parse stx
     [(_ name:id (field:field ...))
      (let ([fields (syntax->list #'(field ...))])
-       (define (fields-but field) (for/list ([f fields] #:unless (equal? f field)) f))
        (define (accessor-id field) (format-id stx "~a-~a" #'name field))
        (with-syntax 
            ([updater        (format-id stx "update-~a" #'name)]
@@ -50,8 +49,8 @@
            (begin
              (struct name (field ...) #:transparent)
              (define-syntax (updater so)
-               (define field-names (list #'field ...))
-               (define fields (syntax->list #'(field ...)))
+               ; (define field-names (list #'field ...))
+               (define fields      (syntax->list #'(field ...)))
                (syntax-parse so
                  [(_ se [fid val] (... ...))
                   (define fields-to-update  (syntax->datum #'(fid (... ...))))
