@@ -16,6 +16,10 @@
              unstable/syntax
              racket/syntax))
 
+(begin-for-syntax 
+  (define (syntax-map f stx)
+    (map f (syntax->list stx))))
+
 (define-syntax (declare stx)
   (syntax-case stx ()
     [(_ () . body) 
@@ -84,15 +88,18 @@
   (define sub1 (sub text 0 4))
   (define (sub->string s)
     (declare ([s sub])
-             (substring s.str s.start s.end)))
+      (substring s.str s.start s.end)))
   (define (skip-one s)
     (declare ([s sub])
       (s.start! (+ s.start 1))))
   (define (skip-two s)
     (declare ([s sub])
-      (s.start!+= 2)))  
+      (s.start!+= 2)))
   (check-equal? (sub->string sub1) "This")
   (skip-one sub1)
   (check-equal? (sub->string sub1) "his")
   (skip-two sub1)
-  (check-equal? (sub->string sub1) "s"))
+  (check-equal? (sub->string sub1) "s")
+  (declare ([sub1 sub])
+    (sub1.start!++))
+  (check-equal? (sub->string sub1) ""))
