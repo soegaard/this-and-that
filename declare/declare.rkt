@@ -13,7 +13,6 @@
 
 (require 
  (for-syntax racket/struct-info
-             unstable/syntax
              racket/syntax))
 
 (begin-for-syntax 
